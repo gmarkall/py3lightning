@@ -3,35 +3,35 @@
    hieroglyph-quickstart on Fri Jul 31 10:02:18 2015.
 
 
-Python 3
-========
+Move to Python 3!
+=================
 
 Ian Ozsvald, Graham Markall
 
 
-Python 3 Improvements over Python 2
+Py3 Improvements over Py2
 -----------------------------------
 
-An incomplete list:
+An (incomplete) list:
 
 - Unicode improvements, Exception chaining, unpacking generalisations, asyncio,
   :code:`async`/:code:`await`, fine-grained :code:`OSError` subclasses,
-  :code:`yield from`, fault handlers, unorderable types, type hints, ...
+  :code:`yield from`, fault handlers, unorderable types, type hints, iterators
+  everywhere...
 
-We'll briefly demo now:
+Brief demos of:
 
 - Matrix multiplication :code:`@` operator
 - Advanced unpacking
 - Keyword-only args
-- Iterators everywhere
 
 
 Matrix Multiplication - :code:`@` operator
 ------------------------------------------
 
-.. math::
-
-   MM^TNv
+.. image:: /_static/matexpr.png
+   :align: center
+   :width: 200
 
 Old "syntax":
 
@@ -57,6 +57,8 @@ Defining matrix multiplication for your own classes:
 Advanced Unpacking
 ------------------
 
+Get "everything else" from an iterable:
+
 .. code-block:: python
 
    >>> a, b, *rest = range(10)
@@ -66,22 +68,6 @@ Advanced Unpacking
    1
    >>> rest
    [2, 3, 4, 5, 6, 7, 8, 9]
-
-:code:`*rest` can go anywhere:
-
-.. code-block:: python
-
-   >>> a, *rest, b = range(10)
-   >>> a
-   0
-   >>> b
-   9
-   >>> rest
-   [1, 2, 3, 4, 5, 6, 7, 8]
-
-
-Advanced Unpacking - example
-----------------------------
 
 Get the first and last lines of a file:
 
@@ -97,34 +83,6 @@ Get the first and last lines of a file:
 
 Keyword-only Args
 -----------------
-
-Problem: pass too many arguments to a function, one gets swallowed by a kwarg.
-
-.. code-block:: python
-
-   def cleanup(folder, extreme=False):
-       if extreme:
-           shutil.rmtree('/')
-       else:
-           shutil.rmtree(folder)
-
-OK:
-
-.. code-block:: python
-
-   >>> cleanup('/home/gmarkall/tmp')
-
-Not OK:
-
-.. code-block:: python
-
-   >>> cleanup('/home/gmarkall/tmp', '/home/gmarkall/tmp2')
-
-
-Keyword-only Args (2)
----------------------
-
-Solution: use a Keyword-only arg
 
 .. code-block:: python
 
@@ -142,51 +100,12 @@ Solution: use a Keyword-only arg
    TypeError: cleanup() takes 1 positional argument but 2 were given
 
 
-Iterators Everywhere
---------------------
-
-Python 2:
-
-.. code-block:: python
-
-   >>> for i in range(100000000000):
-           print(i)
-       Traceback (most recent call last):
-         File "<stdin>", line 1, in <module>
-       MemoryError
-
-Python 3:
-
-.. code-block:: python
-
-   >>> for i in range(100000000000):
-           print(i)
-   1 ...
-   99999999999
-
-Benfits: consistent API, no accidental performance hits from not using
-iterators!
-
-Compatibility
--------------
-
-`py3readiness.org <http://py3readiness.org>`_
-
-.. image:: /_static/py3readiness.png
+.. image:: /_static/drmkwargs.png
    :align: center
+   :width: 500
 
-
-Compatibility - 2
------------------
-
-- Pretty much all data science packages Python 3 compatible
-- e.g. numpy, scikit-learn, pandas, ipython pymongo, PyMySQL, numba, flask,
-  django, awscli, redis, Pillow, bs4, matplotlib, etc, ...
-- One (eroding) exception, Scrapy:
-
-  - Python 3 support getting there: https://github.com/scrapy/scrapy/issues/263
-  - Europython sprint for Python 3 removed blockers: Request / Response objects
-  - Get involved!
+Compatibility with common libraries
+-----------------------------------
 
 
 Py3-only libraries
@@ -206,21 +125,19 @@ to paid support for new libraries:
 How to upgrade
 --------------
 
-- 2to3: mechanical conversion of Python 2 code to Python 3 code
-- six / future: compatibility layers for Python 2 and 3
+- **2to3**: mechanical conversion of Py2 code to Py3 code
+- **six** / **future**: compatibility layers for both 2 and 3
 
   - use Python 3 features, keep compatibility with Python 2
 
-- conda package manager: Easy switching between Python 2 and 3 environments
-- Use `python3porting.com <http://python3porting.com>`_ as a resource
-- Have lots of unit tests!
+- **conda** package manager: Easily switch between Python 2 and 3 environments
 
-  - Talk to `Dave MacIver <https://twtiter.com/drmaciver>`_ about this!
+  - :code:`conda create -n py34 python=3.4 anaconda`
 
-- Use CI, e.g. Travis for testing with multiple versions
+- **Resource**:: `python3porting.com <http://python3porting.com>`_
+- **Unit tests**: have lots of them!
 
+  - Talk to `Dave MacIver <https://twtiter.com/drmaciver>`_ about this (and
+    Hypothesis)!
 
-Conclusion
-----------
-
-- The time to move is now!
+- **Use CI**: e.g. Travis for testing with multiple versions
