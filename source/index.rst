@@ -112,16 +112,10 @@ Compatibility with common libraries
 Py3-only libraries
 ------------------
 
-The flip side of the compatibility coin: Python 2 is getting left behind/moving
-to paid support for new libraries:
+.. image:: /_static/whymovenow.png
 
-- Geophysical data: `SegPy <https://github.com/sixty-north/segpy>`_
-- Anything using :code:`asyncio`, see `aio-libs Github
-  <https://github.com/aio-libs>`_
+“Ubuntu 15.10 (Wily Werewolf) to Switch to Python 3.5 Ahead of Ubuntu 16.04 LTS”
 
-  - Python 3.5 has :code:`async`/:code:`await` - more movement in this direction
-
-- `viewflow.io <http://viewflow.io>`_ Python 2 is paid-for support
 
 How to upgrade
 --------------
