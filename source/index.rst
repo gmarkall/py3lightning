@@ -1,5 +1,5 @@
 
-.. Python 3# slides file, created by
+.. Python 3 slides file, created by
    hieroglyph-quickstart on Fri Jul 31 10:02:18 2015.
 
 
@@ -107,6 +107,7 @@ Keyword-only Args
 Compatibility with common libraries
 -----------------------------------
 
+.. image:: /_static/py3liblogos.png
 
 Py3-only libraries
 ------------------

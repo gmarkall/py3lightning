@@ -53,7 +53,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Python 3#'
+project = u'Python 3'
 copyright = u'2015, Ian Oszvald, Graham Markall'
 author = u'Ian Oszvald, Graham Markall'
 
@@ -297,7 +297,7 @@ extensions += [
     'hieroglyph',
 ]
 
-slide_title = 'Python 3#'
+slide_title = 'Python 3'
 slide_theme = 'single-level'
 slide_levels = 3
 
