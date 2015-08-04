@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Move to Python 3! &mdash; Python 3</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="_static/single.css" type="text/css" />
+    
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2015.07.31',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/common.js"></script>
+    
+    <script type="text/javascript" src="_static/slides.js"></script>
+    <script type="text/javascript" src="_static/sync.js"></script>
+    <script type="text/javascript" src="_static/controller.js"></script>
+    <script type="text/javascript" src="_static/init.js"></script>
+    
+    
+    <link rel="top" title="Python 3" href="#" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  
+<article class="slide level-1" id="move-to-python-3">
+
+<h1>Move to Python 3!</h1>
+
+<p>Ian Ozsvald, Graham Markall</p>
+
+
+
+
+</article>
+<article class="slide level-2" id="py3-improvements-over-py2">
+
+<h2>Py3 Improvements over Py2</h2>
+
+<p>An (incomplete) list:</p>
+<ul class="simple">
+<li>Unicode improvements, Exception chaining, unpacking generalisations, asyncio,
+<code class="code docutils literal"><span class="pre">async</span></code>/<code class="code docutils literal"><span class="pre">await</span></code>, fine-grained <code class="code docutils literal"><span class="pre">OSError</span></code> subclasses,
+<code class="code docutils literal"><span class="pre">yield</span> <span class="pre">from</span></code>, fault handlers, unorderable types, type hints, iterators
+everywhere...</li>
+</ul>
+<p>Brief demos of:</p>
+<ul class="simple">
+<li>Matrix multiplication <code class="code docutils literal"><span class="pre">&#64;</span></code> operator</li>
+<li>Advanced unpacking</li>
+<li>Keyword-only args</li>
+</ul>
+
+
+
+
+</article>
+<article class="slide level-2" id="matrix-multiplication-operator">
+
+<h2>Matrix Multiplication - <code class="code docutils literal"><span class="pre">&#64;</span></code> operator</h2>
+
+<a class="reference internal image-reference" href="_images/matexpr.png"><img alt="_images/matexpr.png" class="align-center" src="_images/matexpr.png" style="width: 200px;" /></a>
+<p>Old &quot;syntax&quot;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">M</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">N</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>New syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre>(M @ M.T) @ N @ v
+</pre></div>
+</div>
+<p>Defining matrix multiplication for your own classes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>  <span class="c"># @</span>
+<span class="k">def</span> <span class="nf">__rmatmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="c"># @</span>
+<span class="k">def</span> <span class="nf">__imatmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="c"># @=</span>
+</pre></div>
+</div>
+
+
+
+
+</article>
+<article class="slide level-2" id="advanced-unpacking">
+
+<h2>Advanced Unpacking</h2>
+
+<p>Get &quot;everything else&quot; from an iterable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rest</span>
+<span class="go">[2, 3, 4, 5, 6, 7, 8, 9]</span>
+</pre></div>
+</div>
+<p>Get the first and last lines of a file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;using_python_to_profit.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="go">        first, *_, last = f.readlines()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first</span>
+<span class="go">&#39;Step 1: Use Python 3\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">last</span>
+<span class="go">&#39;Step 10: Profit!\n&#39;</span>
+</pre></div>
+</div>
+
+
+
+
+</article>
+<article class="slide level-2" id="keyword-only-args">
+
+<h2>Keyword-only Args</h2>
+
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">extreme</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">extreme</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>&gt;&gt;&gt; cleanup(&#39;/home/gmarkall/tmp&#39;, &#39;/home/gmarkall/tmp2&#39;)
+Traceback (most recent call last):
+File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: cleanup() takes 1 positional argument but 2 were given
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/drmkwargs.png"><img alt="_images/drmkwargs.png" class="align-center" src="_images/drmkwargs.png" style="width: 500px;" /></a>
+
+
+
+
+</article>
+<article class="slide level-2" id="compatibility-with-common-libraries">
+
+<h2>Compatibility with common libraries</h2>
+
+<img alt="_images/py3liblogos.png" src="_images/py3liblogos.png" />
+
+
+
+
+</article>
+<article class="slide level-2" id="py3-only-libraries">
+
+<h2>Py3-only libraries</h2>
+
+<img alt="_images/whymovenow.png" src="_images/whymovenow.png" />
+<p>“Ubuntu 15.10 (Wily Werewolf) to Switch to Python 3.5 Ahead of Ubuntu 16.04 LTS”</p>
+
+
+
+
+</article>
+<article class="slide level-2" id="how-to-upgrade">
+
+<h2>How to upgrade</h2>
+
+<ul class="simple">
+<li><strong>2to3</strong>: mechanical conversion of Py2 code to Py3 code</li>
+<li><strong>six</strong> / <strong>future</strong>: compatibility layers for both 2 and 3<ul>
+<li>use Python 3 features, keep compatibility with Python 2</li>
+</ul>
+</li>
+<li><strong>conda</strong> package manager: Easily switch between Python 2 and 3 environments<ul>
+<li><code class="code docutils literal"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">py34</span> <span class="pre">python=3.4</span> <span class="pre">anaconda</span></code></li>
+</ul>
+</li>
+<li><strong>Resource</strong>:: <a class="reference external" href="http://python3porting.com">python3porting.com</a></li>
+<li><strong>Unit tests</strong>: have lots of them!<ul>
+<li>Talk to <a class="reference external" href="https://twtiter.com/drmaciver">Dave MacIver</a> about this (and
+Hypothesis)!</li>
+</ul>
+</li>
+<li><strong>Use CI</strong>: e.g. Travis for testing with multiple versions</li>
+</ul>
+
+
+
+
+</article>
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>
