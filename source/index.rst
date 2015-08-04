@@ -6,7 +6,18 @@
 Move to Python 3!
 =================
 
-Ian Ozsvald, Graham Markall
+
+Graham Markall - `@gmarkall <https://twitter.com/gmarkall>`_
+
+Ian Ozsvald - `@ianozsvald <https://twitter.com/ianozsvald>`_, `ianozsvald.com <http://ianozsvald.com>`_
+
+|
+|
+
+.. image:: /_static/ccby.svg
+
+
+`https://github.com/gmarkall/py3lightning <https://github.com/gmarkall/py3lightning>`_
 
 
 Py3 Improvements over Py2
@@ -136,3 +147,5 @@ How to upgrade
     Hypothesis)!
 
 - **Use CI**: e.g. Travis for testing with multiple versions
+
+- **New projects**: Start in Py3, backport only if necessary
