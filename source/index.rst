@@ -54,7 +54,7 @@ New syntax:
 
 .. code-block:: python
 
-   (M @ M.T) @ N @ v
+   M @ M.T @ N @ v
 
 Defining matrix multiplication for your own classes:
 
